@@ -1,0 +1,74 @@
+{% extends '../../_layout.html' %}
+
+{% block title %}Admin | Login Page{% endblock %}
+
+{% block pageStyles %}
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="/assets/global/plugins/select2/select2.css" rel="stylesheet" type="text/css"/>
+    <link href="/assets/admin/pages/css/login.css" rel="stylesheet" type="text/css"/>
+    <!-- END PAGE LEVEL SCRIPTS -->
+{% endblock %}
+
+{% block body %}
+<body class="login">
+<!-- BEGIN LOGO -->
+<div class="logo">
+	<a href="#">
+	<img src="#" alt=""/>
+	</a>
+</div>
+<!-- END LOGO -->
+<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+<div class="menu-toggler sidebar-toggler">
+</div>
+<!-- END SIDEBAR TOGGLER BUTTON -->
+<!-- BEGIN LOGIN -->
+<div class="content">
+	<!-- BEGIN LOGIN FORM -->
+	<form id="admin-login-box" action="{{ 'adUser_check_login' | url }}" class="login-form" method="post">
+		<h3 class="form-title">Login admin page</h3>
+        <div class="alert alert-dismissible display-hide" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <span class="alert-content"></span>
+        </div>
+		<div class="form-group">
+			<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+			<label class="control-label visible-ie8 visible-ie9">Email</label>
+			<div class="input-icon">
+				<i class="fa fa-user"></i>
+				<input class="form-control placeholder-no-fix" type="text" autocomplete="off" value="thaohv@netbase.vn" placeholder="Email" name="email"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label visible-ie8 visible-ie9">Password</label>
+			<div class="input-icon">
+				<i class="fa fa-lock"></i>
+				<input class="form-control placeholder-no-fix" type="password" value="123" autocomplete="off" placeholder="Password" name="password"/>
+			</div>
+		</div>
+        <div class="form-actions">
+            <button type="submit" class="btn green pull-right">
+                Login <i class="m-icon-swapright m-icon-white"></i>
+            </button>
+        </div>
+	</form>
+	<!-- END LOGIN FORM -->
+</div>
+<!-- END LOGIN -->
+<!-- BEGIN COPYRIGHT -->
+<div class="copyright">
+	 2014 &copy; NodeCart
+</div>
+<!-- END COPYRIGHT -->
+{% endblock %}
+
+{% block pagePlugins %}
+    <script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
+{% endblock %}
+
+{% block pageScripts %}
+    <script src="/assets/global/scripts/min/metronic.min.js" type="text/javascript"></script>
+    <script src="/assets/admin/layout/scripts/min/layout.min.js" type="text/javascript"></script>
+    <script src="/assets/admin/printshop/user/main.js" type="text/javascript"></script>
+{% endblock %}

@@ -1,0 +1,93 @@
+<div class="tab-pane active" id="tab_1_3">
+    <div class="scroller" style="height: 290px;" data-always-visible="1" data-rail-visible1="1">
+        {% if newUsers | default(false) %}
+        <div class="row">
+            {% for user in newUsers %}
+            <div class="col-md-6 user-info">
+                {% if user.avatar %}
+                <img alt="" src="{{ user.avatar }}" class="img-responsive" style="width: 45px; height: 45px;"/>
+                {% else %}
+                <img alt="" src="http://placehold.it/45x45" class="img-responsive" style="width: 45px; height: 45px;"/>
+                {% endif %}
+
+                <div class="details">
+                    <div>
+                        <a href="#">{{ user.firstName }} {{ user.lastName }}</a>
+                            <span class="label label-sm label-success label-mini">
+                                {% if user.isActive %}Activated{% else %}Not Active{% endif %}
+                            </span>
+                    </div>
+                    <div>
+                        {{ user.created | date('F j, g:i a') }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="tab-pane" id="tab_1_1">
+<div class="scroller" style="height: 290px;" data-always-visible="1" data-rail-visible="0">
+<ul class="feeds">
+    {% if newPosts | default(false) %}
+        {% for post in newPosts %}
+            <li>
+                <div class="col1">
+                    <div class="cont">
+                        <div class="cont-col1">
+                            <div class="label label-sm label-success">
+                                <i class="fa fa-bell-o"></i>
+                            </div>
+                        </div>
+                        <div class="cont-col2">
+                            <div class="desc">
+                                <a href="#">{{ post.user.firstName }} {{ post.user.lastName }}</a>
+                                was created <a href="#">this post</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col2">
+                    <div class="date">
+                        {{ post.created | date('F j, g:i a') }}
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    {% endif %}
+</ul>
+</div>
+</div>
+<div class="tab-pane" id="tab_1_2">
+<div class="scroller" style="height: 290px;" data-always-visible="1" data-rail-visible1="1">
+<ul class="feeds">
+    {% if newComments | default(false) %}
+        {% for comment in newComments %}
+            <li>
+                <div class="col1">
+                    <div class="cont">
+                        <div class="cont-col1">
+                            <div class="label label-sm label-success">
+                                <i class="fa fa-bell-o"></i>
+                            </div>
+                        </div>
+                        <div class="cont-col2">
+                            <div class="desc">
+                                <a href="#">{{ comment.username }}</a>
+                                was commented at <a href="#">this post</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col2">
+                    <div class="date">
+                        {{ comment.created | date('F j, g:i a') }}
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    {% endif %}
+</ul>
+</div>
+</div>

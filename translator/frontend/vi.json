@@ -1,0 +1,15 @@
+{
+    "home": {
+        "title": "Trang chủ",
+        "logout": "Đăng xuất",
+        "login": "Đăng nhập",
+        "registration": "Đăng ký"
+    },
+    "product": {
+        "title": "Sản phẩm",
+        "checkout": "Thanh toán"
+    },
+    "blog": {
+        "title": "Bài viết"
+    }
+}

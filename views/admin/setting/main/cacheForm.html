@@ -1,0 +1,26 @@
+<!-- BEGIN FORM-->
+<form action="{{ 'adSetting_cache' | url }}" class="form-horizontal form-row-seperated setting-form cache" method="post">
+    <div class="form-body">
+        <input type="hidden" name="formName" value="cache">
+        <div class="form-group">
+            <label class="control-label col-md-3"></label>
+            <div class="col-md-9">
+                <div class="radio-list">
+                    <label>
+                        <input type="checkbox" name="assets" checked/>
+                        Clear cache of assets (js & css) </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button type="submit" class="btn green"><i class="fa fa-pencil"></i> Clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- END FORM-->

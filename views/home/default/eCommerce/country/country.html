@@ -1,0 +1,8 @@
+<label for="country">Country <span class="require">*</span></label>
+<select class="form-control input-sm form-data" id="country" name="country" data-route="{{ 'region_list' | url({'countryCode': ''}) }}">
+    {% if countries | length | default(false) %}
+        {% for country in countries %}
+            <option value="{{ country.code }}" data-state="{{ country.name }}">{{ country.name }}</option>
+        {% endfor %}
+    {% endif %}
+</select>

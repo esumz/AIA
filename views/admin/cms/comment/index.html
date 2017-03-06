@@ -1,0 +1,103 @@
+{% extends '../../index.html' %}
+
+{% block title %}Admin | Comment Page{% endblock %}
+
+{% block pageStyles %}{% endblock %}
+
+{% set sidebarActive = 'posts' %}
+
+{% block mainContent %}
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+<div class="page-content">
+{% include '../../elements/styleCustomize.html' %}
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Comment <small>management</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="{{ 'admin_home_page' | url() }}">Home</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="{{ 'adCms_post_list' | url() }}">Posts</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Comment</a>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-edit"></i>List
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar comment-list">
+                    <!--<select class="form-control comment-date-filter" style="display: inline; width: auto; margin: 0 5px;">-->
+                        <!--<option value="all">All</option>-->
+                        <!--<option value="newest">Newest</option>-->
+                    <!--</select>-->
+                    <div class="comment-search-wrap" style="display: inline;">
+                        <input class="form-control input-medium input-inline comment-user-filter" style="margin-top: -5px;" placeholder="Search by user">
+                        <table class="table table-hover comment-search-data" style="display: none;"></table>
+                    </div>
+                    <a class="btn btn-default comment-filter-btn" href="#" style="margin-top: -5px;">Search</a>
+                </div>
+                <table class="table table-striped table-hover table-bordered list-comment">
+                    <thead>
+                    <tr>
+                        <th>
+                            Username
+                        </th>
+                        <th>
+                            Content
+                        </th>
+                        <th>
+                            Post
+                        </th>
+                        <th>
+                            Created date
+                        </th>
+                        <th>
+                            Delete
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% include 'list.html' %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+<!-- END PAGE CONTENT -->
+</div>
+</div>
+<!-- END CONTENT -->
+{% endblock %}
+
+{% block pagePlugins %}{% endblock %}
+
+{% block pageScripts %}
+    {% parent %}
+    <script src="/assets/admin/printshop/cms/comment.js"></script>
+{% endblock %}
+

@@ -1,0 +1,9 @@
+{
+    "title": "Category",
+    "description": "Description for category",
+    "name": "category",
+    "version": "1.0.1",
+    "author": "ThaoHa",
+    "styles": ["style.css", "style-shop.css"],
+    "scripts": ["script.js"]
+}

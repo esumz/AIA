@@ -1,0 +1,9 @@
+{% if albums | default(false) and not search | default(false) %}
+    <ul class="search-album-result">
+        {% for album in albums %}
+            <li data-id="{{ album.id }}">
+                <span class="name">{{ album.name }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

@@ -1,0 +1,129 @@
+<div class="pre-header">
+    <div class="container">
+        <div class="row">
+            <!-- BEGIN TOP BAR LEFT PART -->
+            <div class="col-md-6 col-sm-6 additional-shop-info">
+                <ul class="list-unstyled list-inline">
+                    <li><i class="fa fa-phone"></i><span>+1 456 6717</span></li>
+                    <!-- BEGIN CURRENCIES -->
+                    <li class="shop-currencies">
+                        <a href="javascript:void(0);" class="current">$</a>
+                    </li>
+                    <!-- END CURRENCIES -->
+                    <!-- BEGIN LANGS -->
+                    <li class="langs-block">
+                        <a href="javascript:void(0);" class="current">English </a>
+                        <!--<div class="langs-block-others-wrapper"><div class="langs-block-others">-->
+                            <!--<a href="javascript:void(0);">French</a>-->
+                            <!--<a href="javascript:void(0);">Germany</a>-->
+                            <!--<a href="javascript:void(0);">Turkish</a>-->
+                        <!--</div></div>-->
+                    </li>
+                    <!-- END LANGS -->
+                </ul>
+            </div>
+            <!-- END TOP BAR LEFT PART -->
+            <!-- BEGIN TOP BAR MENU -->
+            <div class="col-md-6 col-sm-6 additional-nav">
+                <ul class="list-unstyled list-inline pull-right">
+                    {% if user  | default(false) %}
+                        <li>Hi <a href="{{ 'owner_profile_view' | url() }}">{{ user.firstName }}</a></li>
+                        <li><a href="{{ 'product_checkout' | url() }}">{{ 'product.checkout' | trans }}</a></li>
+                        <li><a href="{{ 'user_logout_page' | url() }}">{{ 'home.logout' | trans }}</a></li>
+                    {% else %}
+                        <li><a href="{{ 'user_login_page' | url() }}">{{ 'home.login' | trans }}</a></li>
+                        <li><a href="{{ 'product_checkout' | url() }}">{{ 'product.checkout' | trans }}</a></li>
+                        <li><a href="{{ 'user_registry_page' | url() }}">{{ 'home.registration' | trans }}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- END TOP BAR MENU -->
+        </div>
+    </div>
+</div>
+
+<!-- BEGIN HEADER -->
+<div class="header">
+<div class="container">
+<a class="site-logo" href="{{ 'home_page' | url() }}"><img src="../../assets/frontend/layout/img/logos/logo-shop-red.png" alt="Metronic Shop UI"></a>
+
+<a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
+
+<!-- BEGIN CART -->
+<div class="top-cart-block">
+    <div class="top-cart-info">
+        <a href="javascript:void(0);" class="top-cart-info-count"><span class="number-of-item">0</span> items</a>
+        <a href="javascript:void(0);" class="top-cart-info-value">{{ setting.displayCurrency.symb }}<span class="total-price">0</span> </a>
+    </div>
+    <i class="fa fa-shopping-cart"></i>
+
+    <div class="top-cart-content-wrapper">
+        <div class="top-cart-content">
+            <ul class="scroller list-item" style="height: 250px;">
+                <!-- Fill data to here -->
+            </ul>
+            <div class="empty-item" style="display: none;">
+                <li class="top-cart-item">
+                    <img src="http://placehold.it/32x32" alt="" width="37" height="34">
+                    <span class="cart-content-count quantity"></span>
+                    <strong><a href="{{ 'product_view' | url({'alias': ''}) }}" class="name"></a></strong>
+                    <em class="price"></em>
+                    <a href="javascript:void(0);" class="del-goods">&nbsp;</a>
+                </li>
+            </div>
+            <div class="text-right">
+                <a href="javascript:void(0);" class="btn btn-default clear-top-cart pull-left" style="margin-left: 5px;">Clear</a>
+                <a href="{{ 'cart_view' | url() }}" class="btn btn-default">View Cart</a>
+                <a href="{{ 'product_checkout' | url() }}" class="btn btn-primary">Checkout</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END CART -->
+
+<!-- BEGIN NAVIGATION -->
+<div class="header-navigation">
+    {% set menus = 'menus' | thData %}
+
+    <ul>
+        <li><a href="{{ 'product_page' | url() }}">Products</a></li>
+        <li><a href="{{ 'blog_page' | url() }}">Blog</a></li>
+        {% if menus | default(false) %}
+            {% for menu in menus %}
+                <li {% if menu.subMenus | length | default(false) %}class="dropdown"{% endif %}>
+                    <a href="{{ menu.value }}">
+                        {{ menu.name }}
+                    </a>
+                    {% if menu.subMenus | length | default(false) %}
+                    <ul class="dropdown-menu">
+                        {% for subMenu in menu.subMenus %}
+                        <li><a href="{{ subMenu.value }}">{{ subMenu.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+
+            <!-- BEGIN TOP SEARCH -->
+            <li class="menu-search">
+                <span class="sep"></span>
+                <i class="fa fa-search search-btn"></i>
+                <div class="search-box">
+                    <form action="#">
+                        <div class="input-group">
+                            <input type="text" placeholder="Search" class="form-control">
+                            <span class="input-group-btn">
+                              <button class="btn btn-primary" type="submit">Search</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </li>
+            <!-- END TOP SEARCH -->
+    {% endif %}
+    </ul>
+</div>
+<!-- END NAVIGATION -->
+</div>
+</div>
+<!-- Header END -->

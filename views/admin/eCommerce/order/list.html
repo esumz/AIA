@@ -1,0 +1,35 @@
+{% if orders | default(false) and not search | default(false) %}
+    {% for order in orders %}
+        <tr data-id="{{ order.id }}">
+            <td>
+                <p>Name: {{ order.billingDetail.firstName }} {{ order.billingDetail.lastName }}</p>
+                <span>Country: {{ order.billingDetail.country }}</span> |
+                <span>Address: {{ order.billingDetail.address1 }}</span> |
+                <span>Email: {{ order.billingDetail.email }}</span> |
+                <span>Telephone: {{ order.billingDetail.telephone }}</span>
+            </td>
+            <td>
+                <p>Name: {{ order.deliveryDetail.firstName }} {{ order.deliveryDetail.lastName }}</p>
+                <span>Country: {{ order.deliveryDetail.country }}</span> |
+                <span>Address: {{ order.deliveryDetail.address1 }}</span> |
+                <span>Email: {{ order.deliveryDetail.email }}</span> |
+                <span>Telephone: {{ order.deliveryDetail.telephone }}</span>
+            </td>
+            <td>
+                <span>{{ order.dataPrice.total }} {{ order.dataPrice.currency }}</span>
+            </td>
+            <td>
+                <span>{{ order.status }}</span>
+            </td>
+            <td class="center">
+                <span class="created">{{ order.created | date('d-m-Y') }}</span>
+            </td>
+            <td>
+                <ol style="padding-left: 15px;">
+                    <li><a class="view-item" href="{{ 'adOrder_view' | url({'id': order.id}) }}" target="_blank">View</a></li>
+                    <li><a class="delete" href="javascript:;" data-route="{{ 'adOrder_delete' | url({'id': order.id}) }}">Delete</a></li>
+                </ol>
+            </td>
+        </tr>
+    {% endfor %}
+{% endif %}

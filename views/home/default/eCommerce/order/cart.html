@@ -1,0 +1,116 @@
+{% extends '../../index.html' %}
+
+{% block title %}Shopping cart{% endblock %}
+
+{% block styleSheets %}
+    {% parent %}
+    {{ 'cart-view.min.css' | cssCompress([
+        '/assets/global/plugins/fancybox/source/jquery.fancybox.css',
+        '/assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.css',
+        '/assets/global/plugins/uniform/css/uniform.default.css',
+        'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css',
+        '/assets/global/plugins/rateit/src/rateit.css'
+    ]) | raw }}
+{% endblock %}
+
+{% block body %}
+<body class="ecommerce">
+
+<div class="main">
+    <div class="container">
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+            <!-- BEGIN CONTENT -->
+            <div class="col-md-12 col-sm-12">
+                <h1>Shopping cart</h1>
+
+                <div class="alert alert-warning alert-dismissible cart-empty" role="alert" style="display: none;">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <strong>Warning!</strong> Your cart is empty. Please select product first!
+                </div>
+
+                <div class="goods-page cart-view">
+                    <div class="goods-data clearfix">
+                        <div class="table-wrapper-responsive">
+                            <table summary="Shopping cart" class="cart">
+                                <tr>
+                                    <th class="goods-page-image">Image</th>
+                                    <th class="goods-page-description">Name</th>
+                                    <th class="goods-page-quantity">Quantity</th>
+                                    <th class="goods-page-price">Unit price</th>
+                                    <th class="goods-page-total" colspan="2">Total</th>
+                                </tr>
+                                <tr class="cart-item-empty" style="display: none;">
+                                    <td class="goods-page-image">
+                                        <a href="#"><img class="product-img" src="" alt=""></a>
+                                    </td>
+                                    <td class="goods-page-description">
+                                        <h3><a href="#" class="product-name"></a></h3>
+                                    </td>
+                                    <td class="goods-page-quantity">
+                                        <div class="product-quantity">
+                                            <input class="product-quantity form-control input-sm" type="text" value="1" readonly>
+                                        </div>
+                                    </td>
+                                    <td class="goods-page-price">
+                                        <strong><span>$</span><span class="product-price"></span></strong>
+                                    </td>
+                                    <td class="goods-page-total">
+                                        <strong><span>$</span><span class="product-total-price"></span></strong>
+                                    </td>
+                                    <td class="del-goods-col">
+                                        <a class="del-goods" href="javascript:void(0);">&nbsp;</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="shopping-total">
+                            <ul>
+                                <li>
+                                    <em>Sub total</em>
+                                    <strong class="price"><span>$</span><span class="sub-total"></span></strong>
+                                </li>
+                                <li>
+                                    <em>Shipping cost</em>
+                                    <strong class="price"><span>$</span>3.00</strong>
+                                </li>
+                                <li class="shopping-total-price">
+                                    <em>Total</em>
+                                    <strong class="price"><span>$</span><span class="final-price"></span></strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="{{ 'product_page' | url() }}" class="btn btn-default">Continue shopping <i class="fa fa-shopping-cart"></i></a>
+                    <a href="{{ 'product_checkout' | url() }}" class="btn btn-primary" type="submit">Checkout <i class="fa fa-check"></i></a>
+                </div>
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END SIDEBAR & CONTENT -->
+
+        <!-- BEGIN SIMILAR PRODUCTS -->
+        <div class="row margin-bottom-40">
+            <div class="col-md-12 col-sm-12">
+                <h2>Most popular products</h2>
+                {% include '../product/top.html' %}
+            </div>
+        </div>
+        <!-- END SIMILAR PRODUCTS -->
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ 'cart-view.min.js' | jsCompress([
+        '/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js',
+        '/assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.js',
+        '/assets/global/plugins/zoom/jquery.zoom.js',
+        '/assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js',
+        '/assets/global/plugins/uniform/jquery.uniform.min.js',
+        '/assets/frontend/layout/scripts/layout.js'
+    ]) | raw }}
+{% endblock %}
+

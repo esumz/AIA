@@ -1,0 +1,19 @@
+{% if numberOfPage | default(false) %}
+
+    {% if currentPage | default(false) %}
+        {% set pageActive = currentPage %}
+    {% else %}
+        {% set pageActive = 1 %}
+    {% endif %}
+
+    <ul class="pagination">
+        <li><a href="#">Prev</a></li>
+        {% for count, y in Array(numberOfPage) %}
+            {% set count = count + 1 %}
+            <li {% if count == pageActive %}class="active"{% endif %}>
+                <a href="?page={{ count }}">{{ count }}</a>
+            </li>
+        {% endfor %}
+        <li><a href="#">Next</a></li>
+    </ul>
+{% endif %}

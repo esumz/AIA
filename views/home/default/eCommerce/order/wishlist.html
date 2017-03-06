@@ -1,0 +1,111 @@
+{% extends '../../index.html' %}
+
+{% block title %}Wishlist{% endblock %}
+
+{% block styleSheets %}
+    {% parent %}
+    {{ 'wishlist-view.min.css' | cssCompress([
+        '/assets/global/plugins/fancybox/source/jquery.fancybox.css',
+        '/assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.css',
+        '/assets/global/plugins/uniform/css/uniform.default.css',
+        'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css',
+        '/assets/global/plugins/rateit/src/rateit.css'
+    ]) | raw }}
+{% endblock %}
+
+{% block body %}
+<body class="ecommerce">
+
+<div class="main">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="">Store</a></li>
+            <li class="active">My Wish List</li>
+        </ul>
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+            <!-- BEGIN SIDEBAR -->
+            <div class="sidebar col-md-3 col-sm-5">
+                {% include './catalog.html' %}
+            </div>
+            <!-- END SIDEBAR -->
+
+            <!-- BEGIN CONTENT -->
+            <div class="col-md-9 col-sm-7">
+                <h1>My Wish List</h1>
+                <div class="goods-page">
+                    <div class="goods-data clearfix">
+                        <div class="table-wrapper-responsive">
+                            <table summary="Shopping cart">
+                                <tr>
+                                    <th class="goods-page-image">Image</th>
+                                    <th class="goods-page-description">Description</th>
+                                    <th class="goods-page-stock">Stock</th>
+                                    <th class="goods-page-price" colspan="2">Unit price</th>
+                                </tr>
+                                <tr>
+                                    <td class="goods-page-image">
+                                        <a href="#"><img src="../../assets/frontend/pages/img/products/model3.jpg" alt="Berry Lace Dress"></a>
+                                    </td>
+                                    <td class="goods-page-description">
+                                        <h3><a href="#">Cool green dress with red bell</a></h3>
+                                        <p><strong>Item 1</strong> - Color: Green; Size: S</p>
+                                        <em>More info is here</em>
+                                    </td>
+                                    <td class="goods-page-stock">
+                                        In Stock
+                                    </td>
+                                    <td class="goods-page-price">
+                                        <strong><span>$</span>47.00</strong>
+                                    </td>
+                                    <td class="del-goods-col">
+                                        <a class="del-goods" href="#">&nbsp;</a>
+                                        <a class="add-goods" href="#">&nbsp;</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="goods-page-image">
+                                        <a href="#"><img src="../../assets/frontend/pages/img/products/model4.jpg" alt="Berry Lace Dress"></a>
+                                    </td>
+                                    <td class="goods-page-description">
+                                        <h3><a href="#">Cool green dress with red bell</a></h3>
+                                        <p><strong>Item 1</strong> - Color: Green; Size: S</p>
+                                        <em>More info is here</em>
+                                    </td>
+                                    <td class="goods-page-stock">
+                                        In Stock
+                                    </td>
+                                    <td class="goods-page-price">
+                                        <strong><span>$</span>47.00</strong>
+                                    </td>
+                                    <td class="del-goods-col">
+                                        <a class="del-goods" href="#">&nbsp;</a>
+                                        <a class="add-goods" href="#">&nbsp;</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END SIDEBAR & CONTENT -->
+    </div>
+</div>
+
+{% include '../elements/footer.html' %}
+{% endblock %}
+
+{% block scripts %}
+    {{ 'wishlist-view.min.js' | jsCompress([
+        '/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js',
+        '/assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.js',
+        '/assets/global/plugins/zoom/jquery.zoom.js',
+        '/assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js',
+        '/assets/global/plugins/uniform/jquery.uniform.min.js',
+        '/assets/frontend/layout/scripts/layout.js'
+    ]) | raw }}
+{% endblock %}
+

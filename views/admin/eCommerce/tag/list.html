@@ -1,0 +1,19 @@
+{% if tags | default(false) %}
+    {% for tag in tags %}
+    <tr data-id="{{ tag.id }}">
+        <td>
+            {{ loop.index }}
+        </td>
+        <td>
+            <span class="name">{{ tag.name }}</span>
+        </td>
+        <td>
+            <span class="description">{{ tag.description }}</span>
+        </td>
+        <td>
+            <a class="delete" href="javascript:;" data-route="{{ 'adProduct_tag_delete' | url({'id': tag.id}) }}">
+                Delete </a>
+        </td>
+    </tr>
+    {% endfor %}
+{% endif %}

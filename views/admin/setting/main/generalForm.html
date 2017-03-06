@@ -1,0 +1,190 @@
+<!-- BEGIN FORM-->
+<form action="{{ 'adSetting_save' | url }}" class="form-horizontal form-row-seperated setting-form general" method="post">
+    <div class="form-body">
+        <input type="hidden" name="formName" value="general">
+        <div class="form-group">
+            <label class="control-label col-md-3">Title</label>
+            <div class="col-md-9">
+                <input type="text" placeholder="Title your site" name="title" value="{{ setting.title | default('') }}" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Description</label>
+            <div class="col-md-9">
+                <textarea class="form-control" name="description" placeholder="Description your site">{{ setting.description | default('') }}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Keyword</label>
+            <div class="col-md-9">
+                <input type="text" placeholder="Keywords your site" name="keywords" value="{{ setting.keywords | default('') }}" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Active</label>
+            <div class="col-md-9">
+                <div class="radio-list">
+                    <label>
+                        <input type="radio" name="active" value="1" {% if setting.active | default(false) %}checked{% endif %}/>
+                        True </label>
+                    <label>
+                        <input type="radio" name="active" value="0" {% if not setting.active | default(false) %}checked{% endif %}/>
+                        False </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-body">
+        <div class="form-group">
+            <label class="control-label col-md-3">Base Currency</label>
+            <div class="col-md-9">
+                <select class="form-control" name="baseCurrency">
+                    {% if currencies | length | default(false) %}
+                        {% for currency in currencies %}
+                            <option value="{{ currency.code }}" {% if setting.baseCurrency.id == currency.id %}selected{% endif %}>{{ currency.name }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Default Display Currency</label>
+            <div class="col-md-9">
+                <select class="form-control" name="displayCurrency">
+                    {% if currencies | length | default(false) %}
+                        {% for currency in currencies %}
+                            <option value="{{ currency.code }}" {% if setting.baseCurrency.id == currency.id %}selected{% endif %}>{{ currency.name }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Currency Rate</label>
+            <div class="col-md-3">
+                <input type="text" name="currencyRate" class="form-control" value="{{ setting.currencyRate }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Tax</label>
+            <div class="col-md-3">
+                <input type="text" name="tax" class="form-control" value="{{ setting.tax }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Vat</label>
+            <div class="col-md-3">
+                <input type="text" name="vat" class="form-control" value="{{ setting.vat }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Delivery Method (<a href="#" class="add-new-method">Add new</a>)</label>
+            <div class="col-md-9">
+                <ul class="delivery-list">
+                    {% for deliveryMethod in setting.deliveryMethods %}
+                    <li class="method-item">
+                        <span class="title-display">{{ deliveryMethod.title }}</span> -
+                        {{ setting.baseCurrency.symb }}<span class="cost-display">{{ deliveryMethod.cost }}</span>
+                        (<a href="#" class="delete-btn">Delete</a>)
+                        <input class="name" type="hidden" name="deliveryMethods[{{ deliveryMethod.name }}][name]" value="{{ deliveryMethod.name }}">
+                        <input class="title" type="hidden" name="deliveryMethods[{{ deliveryMethod.name }}][title]" value="{{ deliveryMethod.title }}">
+                        <input class="cost" type="hidden" name="deliveryMethods[{{ deliveryMethod.name }}][cost]" value="{{ deliveryMethod.cost }}">
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="add-panel" style="display: none;">
+                    <div class="empty-method" style="display: none;">
+                        <li class="method-item">
+                            <span class="title-display"></span> -
+                            {{ setting.baseCurrency.symb }}<span class="cost-display"></span>
+                            (<a href="#" class="delete-btn">Delete</a>)
+                            <input class="name" type="hidden" name="" value="">
+                            <input class="title" type="hidden" name="" value="">
+                            <input class="cost" type="hidden" name="" value="">
+                        </li>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input class="form-control name-input" type="text" placeholder="Name of method">
+                        </div>
+                        <div class="col-md-5">
+                            <input class="form-control title-input" type="text" placeholder="Title of method">
+                        </div>
+                        <div class="col-md-2">
+                            <input class="form-control cost-input" type="text" placeholder="Cost value">
+                        </div>
+                        <div class="col-md-2">
+                            <a href="#" class="add-btn btn btn-default">Add</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Payment Method (<a href="#" class="add-new-method">Add new</a>)</label>
+            <div class="col-md-9">
+                <ul class="payment-list">
+                    {% for paymentMethod in setting.paymentMethods %}
+                    <li class="method-item">
+                        <span class="title-display">{{ paymentMethod.title }}</span>
+                        (<a href="#" class="delete-btn">Delete</a>)
+                        <input class="name" type="hidden" value="{{ paymentMethod.name }}">
+                        <input class="title" type="hidden" value="{{ paymentMethod.title }}">
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="add-panel" style="display: none;">
+                    <div class="empty-method" style="display: none;">
+                        <li class="method-item">
+                            <span class="title-display"></span> -
+                            {{ setting.baseCurrency.symb }}<span class="cost-display"></span>
+                            (<a href="#" class="delete-btn">Delete</a>)
+                            <input class="name" type="hidden" name="" value="">
+                            <input class="title" type="hidden" name="" value="">
+                            <input class="cost" type="hidden" name="" value="">
+                        </li>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input class="form-control name-input" type="text" placeholder="Name of method">
+                        </div>
+                        <div class="col-md-6">
+                            <input class="form-control title-input" type="text" placeholder="Title of method">
+                        </div>
+                        <div class="col-md-2">
+                            <a href="#" class="add-btn btn btn-default">Add</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Front end language</label>
+            <div class="col-md-4">
+                <select class="form-control" name="frontendLanguage">
+                    <option value="en" {% if setting.frontendLanguage == 'en' %}selected{% endif %}>English</option>
+                    <option value="vi" {% if setting.frontendLanguage == 'vi' %}selected{% endif %}>Vietnamese</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Back end language</label>
+            <div class="col-md-4">
+                <select class="form-control" name="backendLanguage">
+                    <option value="en" {% if setting.backendLanguage == 'en' %}selected{% endif %}>English</option>
+                    <option value="vi" {% if setting.backendLanguage == 'vi' %}selected{% endif %}>Vietnamese</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" class="btn green"><i class="fa fa-pencil"></i> Save change</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- END FORM-->

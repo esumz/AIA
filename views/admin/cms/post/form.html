@@ -1,0 +1,201 @@
+{% extends '../../index.html' %}
+
+{% block title %}Admin | Post Form{% endblock %}
+
+{% block pageStyles %}
+    {{ 'adPost-form.min.css' | cssCompress([
+        '/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css',
+        '/assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css',
+        '/assets/global/plugins/bootstrap-summernote/summernote.css',
+        '/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
+        '/assets/global/plugins/jquery-tags-input/jquery.tagsinput.css',
+        '/assets/admin/pages/css/profile.css'
+    ]) | raw }}
+{% endblock %}
+
+{% set sidebarActive = 'posts' %}
+
+{% block mainContent %}
+<div class="page-content-wrapper">
+<div class="page-content">
+
+{% include '../../elements/styleCustomize.html' %}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Posts <small>management</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/admin">Home</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="/admin/cms/post-list">Posts</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Form</a>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+<div class="col-md-12 blog-page">
+<div class="row">
+    <div class="col-md-12 col-sm-12 article-block">
+        <!-- BEGIN EXTRAS PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Post form
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form class="form-horizontal form-bordered create-post-form" action="{{ 'adCms_post_save' | url }}" method="POST">
+                    <div class="form-body">
+                        <div class="alert alert-dismissible display-hide" role="alert">
+                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <span class="alert-content"></span>
+                        </div>
+                        <input type="hidden" name="id" value="{% if post.id | default(false) %}{{ post.id }}{% endif %}">
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Title</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="title" value="{% if post.title | default(false) %}{{ post.title }}{% endif %}" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Alias</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="alias" data-route="{{ 'adCms_post_alias' | url }}" {% if post.alias | default(false) %}value="{{ post.alias }}" data-original="{{ post.alias }}"{% endif %} required="required">
+                                <span class="help-block alias"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Description</label>
+                            <div class="col-md-10">
+                                <textarea class="form-control" type="text" name="description" required="required">{% if post.description | default(false) %}{{ post.description }}{% endif %}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Content</label>
+                            <div class="col-md-10">
+                                <div name="content" id="summernote_1">
+                                    {% if post.content | default(false) %}{{ post.content | raw }}{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Avatar</label>
+                            <div class="col-md-10">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                        {% if post.avatar | default(false) %}
+                                            <img src="uploads/{{ post.avatar }}" alt=""/>
+                                        {% else %}
+                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""/>
+                                        {% endif %}
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
+                                    </div>
+                                    <div>
+                                        <span class="btn default btn-file">
+                                        <span class="fileinput-new">
+                                        Select image </span>
+                                        <span class="fileinput-exists">
+                                        Change </span>
+                                        <input class="post-avatar-upload" type="file" data-url="/upload-small-file">
+                                        <input type="hidden" name="avatar" value="{% if post.avatar | default(false) %}{{ post.avatar }}{% endif %}">
+                                        </span>
+                                        <a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">
+                                            Remove </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="selectCategory">Category</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="selectCategory" name="category">
+                                    <option value="">Select category</option>
+                                    {% if post.category | default(false) %}
+                                        {% set currentCategory = post.category.id %}
+                                    {% else %}
+                                        {% set currentCategory = null %}
+                                    {% endif %}
+
+                                    {% if categories | default(false) %}
+                                        {% for category in categories %}
+                                            <option value="{{ category.id }}" {% if category.id == currentCategory %}selected{% endif %}>{{ category.name }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Published</label>
+                            <div class="col-md-10">
+                                <div class="radio-list">
+                                    {% if post | default(false) %}
+                                        {% set isPublished = post.published %}
+                                    {% else %}
+                                        {% set isPublished = true %}
+                                    {% endif %}
+                                    <label class="radio-inline">
+                                        <input type="radio" name="published" value="1" {% if isPublished == true %}checked{% endif %}> Yes </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="published" value="0" {% if isPublished == false %}checked{% endif %}> No </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Tags</label>
+                            <div class="col-md-10 col-sm-12">
+                                <input id="tags-post-input" name="tags" type="text" class="form-control tags" value="{% if post.tags | default(false) %}{{ post.tagNames }}{% endif %}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="padding: 15px 25px;">
+                                <button type="submit" class="btn green pull-right">
+                                    {% if post | default(false) %}
+                                        Save change
+                                    {% else %}
+                                        Create new
+                                    {% endif %}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+
+{% block pagePlugins %}
+    {{ 'adPost-form-plugin.min.js' | jsCompress([
+        '/assets/global/plugins/bootstrap-summernote/summernote.min.js',
+        '/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
+        '/assets/global/plugins/jquery-file-upload/js/jquery.iframe-transport.js',
+        '/assets/global/plugins/jquery-file-upload/js/jquery.fileupload.js',
+        '/assets/global/plugins/jquery-tags-input/jquery.tagsinput.min.js'
+    ]) | raw }}
+{% endblock %}
+
+{% block pageScripts %}
+    {% parent %}
+    <script src="/assets/admin/printshop/cms/post.js"></script>
+{% endblock %}

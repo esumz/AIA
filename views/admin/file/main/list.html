@@ -1,0 +1,10 @@
+{% if files and folder | default(false) %}
+    {% for file in files %}
+        <div class="col-md-3 file-item {{ file.id }}" data-id="{{ file.id }}">
+            <label>
+                <input type="checkbox"/>
+                <a href="/uploads/{{ currentUser.id }}/{{ folder }}/{{ file.id }}.{{ file.extension }}" class="fancybox" rel="gallery" title="{{ file.name }}">{{ file.name | truncate(25) }}</a>
+            </label>
+        </div>
+    {% endfor %}
+{% endif %}

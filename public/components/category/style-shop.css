@@ -1,0 +1,9 @@
+.product-header .sidebar {
+    font: 15px 'PT Sans Narrow', sans-serif;
+    color: #3E4D5C;
+    text-transform: uppercase;
+}
+.product-header .sidebar .list-group-item {
+    background: #fff;
+    padding: 8px 10px 6px;
+}

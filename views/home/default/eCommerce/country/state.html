@@ -1,0 +1,11 @@
+{% if states | length | default(false) %}
+    <label for="region-state">Region/State <span class="require">*</span></label>
+    <select class="form-control input-sm form-data" id="region-state" name="state">
+        {% for state in states %}
+            <option value="{{ state.code }}">{{ state.name }}</option>
+        {% endfor %}
+    </select>
+{% else %}
+    <label>Region/State</label>
+    <input type="text" name="state" class="form-control form-data">
+{% endif %}

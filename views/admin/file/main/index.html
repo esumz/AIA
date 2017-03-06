@@ -1,0 +1,177 @@
+{% extends '../../index.html' %}
+
+{% block title %}Admin | File page{% endblock %}
+
+{% block pageStyles %}
+    {{ 'adFile-style.min.css' | cssCompress([
+        '/assets/global/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css',
+        '/assets/global/plugins/jquery-file-upload/css/jquery.fileupload.css',
+        '/assets/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css',
+        '/assets/global/plugins/fancybox/source/jquery.fancybox.css'
+    ]) | raw }}
+{% endblock %}
+
+{% set sidebarActive = 'files' %}
+
+{% block mainContent %}
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+    <div class="page-content">
+    {% include '../../elements/styleCustomize.html' %}
+
+    <!-- BEGIN PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+            <h3 class="page-title">
+                Files <small>manager</small>
+            </h3>
+            <ul class="page-breadcrumb breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>
+                    <a href="/admin">Home</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="#">Files</a>
+                </li>
+            </ul>
+            <!-- END PAGE TITLE & BREADCRUMB-->
+        </div>
+    </div>
+    <!-- END PAGE HEADER-->
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-12">
+            <form id="fileupload" action="/upload-small-file" method="POST" enctype="multipart/form-data" style="display: none;">
+                <input type="hidden" name="folder" value="privacy">
+                <div class="row fileupload-buttonbar">
+                    <div class="col-lg-7">
+                                    <span class="btn green fileinput-button">
+                                    <i class="fa fa-plus"></i>
+                                    <span>
+                                    Add files... </span>
+                                    <input type="file" name="files[]" multiple="">
+                                    </span>
+                        <button type="submit" class="btn blue start">
+                            <i class="fa fa-upload"></i>
+                                    <span>
+                                    Start upload </span>
+                        </button>
+                        <button type="reset" class="btn warning cancel">
+                            <i class="fa fa-ban-circle"></i>
+                                    <span>
+                                    Cancel upload </span>
+                        </button>
+                        <button type="button" class="btn red delete">
+                            <i class="fa fa-trash"></i>
+                                    <span>
+                                    Delete </span>
+                        </button>
+                        <input type="checkbox" class="toggle">
+                        <!-- The global file processing state -->
+                                    <span class="fileupload-process">
+                                    </span>
+                    </div>
+                    <!-- The global progress information -->
+                    <div class="col-lg-5 fileupload-progress fade">
+                        <!-- The global progress bar -->
+                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar progress-bar-success" style="width:0%;">
+                            </div>
+                        </div>
+                        <!-- The extended global progress information -->
+                        <div class="progress-extended">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+                <!-- The table listing the files available for upload/download -->
+                <table role="presentation" class="table table-striped clearfix">
+                    <tbody class="files">
+                    </tbody>
+                </table>
+            </form>
+            <div class="panel panel-info file-list-manager" data-route="{{ 'adFolder_view' | url({'folder': ''}) }}">
+                <div class="panel-heading">
+                    <h3 class="panel-title">List file</h3>
+                    <div class="pull-right" style="margin-top: -23px;">
+                        <span class="delete-file-panel" style="display: none;">
+                            <input type="checkbox" class="check-all"> Check all
+                            <button class="btn btn-danger delete-btn" style="font-size: 13px; padding: 5px 10px;">Delete</button>
+                        </span>
+                        <button class="btn btn-default create-folder-btn" style="font-size: 13px; padding: 5px 10px;" data-route="{{ 'adFolder_create' | url }}">Create folder</button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="list-folder">
+                        {% if folders | default(false) %}
+                            {% for folder in folders %}
+                                <div class="col-md-3 folder-item" data-name="{{ folder }}">
+                                    <p>
+                                        <!--<input type="checkbox" class="check-item">-->
+                                        <span class="glyphicon glyphicon-folder-open"></span>
+                                        &nbsp<a href="#">{{ folder }}</a>
+                                    </p>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="list-file"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PAGE CONTENT-->
+    </div>
+    </div>
+    <!-- END CONTENT -->
+
+    <!-- The blueimp Gallery widget -->
+    <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
+        <div class="slides">
+        </div>
+        <h3 class="title"></h3>
+        <a class="prev">
+            ‹ </a>
+        <a class="next">
+            › </a>
+        <a class="close white">
+        </a>
+        <a class="play-pause">
+        </a>
+        <ol class="indicator">
+        </ol>
+    </div>
+
+    {% include './template.html' %}
+
+{% endblock %}
+
+{% block pagePlugins %}
+    {{ 'adFile-plugin.min.js' | jsCompress([
+        '/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js',
+        '/assets/global/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js',
+        '/assets/global/plugins/jquery-file-upload/js/vendor/tmpl.min.js',
+        '/assets/global/plugins/jquery-file-upload/js/vendor/load-image.min.js',
+        '/assets/global/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js',
+        '/assets/global/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js',
+        '/assets/global/plugins/jquery-file-upload/js/jquery.iframe-transport.js',
+        '/assets/global/plugins/jquery-file-upload/js/jquery.fileupload.js',
+        '/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-process.js',
+        '/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-image.js',
+        '/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-audio.js',
+        '/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-video.js',
+        '/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-validate.js',
+        '/assets/global/plugins/jquery-file-upload/js/jquery.fileupload-ui.js',
+        '/assets/global/plugins/jquery-file-upload/js/cors/jquery.xdr-transport.js',
+    ]) | raw }}
+{% endblock %}
+
+{% block pageScripts %}
+    {{ 'adFile-script.min.js' | jsCompress([
+        '/assets/global/scripts/metronic.js',
+        '/assets/admin/layout/scripts/layout.js',
+        '/assets/admin/printshop/file/manager.js'
+    ]) | raw }}
+{% endblock %}

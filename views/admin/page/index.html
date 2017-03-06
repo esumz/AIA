@@ -1,0 +1,101 @@
+{% extends '../index.html' %}
+
+{% block title %}Admin | Page{% endblock %}
+
+{% block pageStyles %}{% endblock %}
+
+{% set sidebarActive = 'pages' %}
+
+{% block mainContent %}
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+<div class="page-content">
+{% include '../elements/styleCustomize.html' %}
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Page <small>management</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/admin">Home</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="{{ 'adPage_manager' | url }}">Page</a>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-edit"></i>List
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="btn-group">
+                        <a href="{{ 'page_design' | url({'link': ''}) }}" target="_blank" class="btn green">Create new</a>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered list-page">
+                    <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Link
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if pages | default(false) %}
+                        {% for page in pages %}
+                            <tr data-id="{{ page.id }}">
+                                <td>
+                                    <span class="name">{{ page.name }}</span>
+                                </td>
+                                <td>
+                                    <span class="link">{{ page.link }}</span>
+                                </td>
+                                <td>
+                                    <a class="delete component-action" href="javascript:;" data-route="{{ 'adPage_delete' | url({'link': page.link}) }}">
+                                    Delete </a> |
+                                    <a href="{{ 'page_view' | url({'link': page.link}) }}" target="_blank">View</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+<!-- END PAGE CONTENT -->
+</div>
+</div>
+<!-- END CONTENT -->
+{% endblock %}
+
+{% block pagePlugins %}{% endblock %}
+
+{% block pageScripts %}
+    {% parent %}
+    <script src="/assets/admin/printshop/page/main.js"></script>
+{% endblock %}

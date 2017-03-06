@@ -1,0 +1,32 @@
+{% if products | default(false) and not search | default(false) %}
+    {% for product in products %}
+        <tr data-id="{{ product.id }}">
+            <td>
+                <span class="first-name">{{ product.name }}</span>
+            </td>
+            <td>
+                <span class="email">{{ setting.baseCurrency.symb }}{{ product.price }}</span>
+            </td>
+            <td>
+                <span class="is-active">{{ product.published }}</span>
+            </td>
+            <td>
+                <span class="username">{{ product.user.firstName }} {{ product.user.lastName }}</span>
+            </td>
+            <td>
+                <span class="group" data-id="{% if product.catalog %}{{ product.catalog.id }}{% endif %}">{% if product.catalog %}{{ product.catalog.name }}{% else %}undefined{% endif %}</span>
+            </td>
+            <td class="center">
+                <span class="created">{{ product.created | date('d-m-Y') }}</span>
+            </td>
+            <td>
+                <a class="edit-item" href="{{ 'adProduct_edit' | url({'id': product.id}) }}">
+                    Edit </a>
+            </td>
+            <td>
+                <a class="delete" href="javascript:;" data-route="{{ 'adProduct_delete' | url({'id': product.id}) }}">
+                    Delete </a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endif %}

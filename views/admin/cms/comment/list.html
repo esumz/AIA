@@ -1,0 +1,22 @@
+{% if comments | default(false) %}
+    {% for comment in comments %}
+    <tr data-id="{{ comment.id }}">
+        <td>
+            <span class="username">{{ comment.user.firstName }}</span>
+        </td>
+        <td>
+            <span class="content">{{ comment.content }}</span>
+        </td>
+        <td>
+            <span class="post"><a href="/admin/cms/post-view/{{ comment.post.id }}">{{ comment.post.title }}</a></span>
+        </td>
+        <td>
+            {{ comment.created | date('d M Y') }}
+        </td>
+        <td>
+            <a class="delete" href="javascript:;" data-route="/admin/cms/comment-delete/{{ comment.id }}">
+                Delete </a>
+        </td>
+    </tr>
+    {% endfor %}
+{% endif %}

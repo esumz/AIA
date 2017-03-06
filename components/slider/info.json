@@ -1,0 +1,9 @@
+{
+    "title": "Slider",
+    "description": "Description for slider",
+    "name": "slider",
+    "version": "1.0.1",
+    "author": "ThaoHa",
+    "styles": ["style.css"],
+    "scripts": ["script.js"]
+}

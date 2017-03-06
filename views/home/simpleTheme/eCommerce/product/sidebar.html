@@ -1,0 +1,9 @@
+{% set catalogs = 'catalogs' | thData() %}
+
+{% if catalogs | length | default(false) %}
+    <ul class="nav nav-sidebar">
+        {% for catalog in catalogs %}
+            <li {% if loop.first %}class="active"{% endif %}><a href="#">{{ catalog.name }} ({{ catalog.count }})</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}

@@ -1,0 +1,47 @@
+<div class="col-md-3 col-sm-3 blog-sidebar">
+    <!-- CATEGORIES START -->
+    <h2 class="no-top-space">Categories</h2>
+    <ul class="nav sidebar-categories margin-bottom-40">
+        {% set categories = 'categories' | thData %}
+
+        {% if categories | default(false) %}
+            {% for category in categories %}
+                <li><a href="{{ 'blog_page_category' | url({'category': category.alias}) }}">{{ category.name }} ({{ category.count }})</a></li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+    <!-- CATEGORIES END -->
+
+    <!-- BEGIN NEW COMMENTS -->
+    <h2>New comments</h2>
+    <div class="recent-news margin-bottom-10">
+        {% if comments | default(false) %}
+            {% for comment in comments %}
+                <div class="row margin-bottom-10">
+                    <div class="col-md-3">
+                        <!--<img class="img-responsive" alt="" src="http://placehold.it/48x48">-->
+                        <img src="{{ comment.user.avatar }}" class="img-responsive" alt=""/>
+                    </div>
+                    <div class="col-md-9 recent-news-inner">
+                        <h3 style="padding-top: 0; margin-bottom: 0; font-size: 14px;"><a href="{{ 'blog_view' | url({'alias': comment.post.alias}) }}">{{ comment.post.title | truncate(25) }}</a></h3>
+                        <span>{{ comment.content | truncate(60) }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <!-- END RECENT NEWS -->
+
+    <!-- BEGIN BLOG TAGS -->
+    <div class="blog-tags margin-bottom-20">
+        <h2>Tags</h2>
+        <ul>
+            <li><a href="#"><i class="fa fa-tags"></i>OS</a></li>
+            <li><a href="#"><i class="fa fa-tags"></i>Metronic</a></li>
+            <li><a href="#"><i class="fa fa-tags"></i>Dell</a></li>
+            <li><a href="#"><i class="fa fa-tags"></i>Conquer</a></li>
+            <li><a href="#"><i class="fa fa-tags"></i>MS</a></li>
+        </ul>
+    </div>
+    <!-- END BLOG TAGS -->
+</div>

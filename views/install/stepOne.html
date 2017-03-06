@@ -1,0 +1,70 @@
+{% extends './_layout.html' %}
+
+{% block content %}
+    {% if message | default(false) %}
+        <div class="alert alert-{{ message.type }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            {{ message.content }}
+        </div>
+    {% endif %}
+
+    <form role="form" class="step-one" action="/install" method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="Enter title">
+                </div>
+                <div class="form-group">
+                    <label>Keyword</label>
+                    <input type="text" class="form-control" name="keywords" placeholder="Keywords">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea type="text" class="form-control" name="description" placeholder="Enter description"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label">Base Currency</label>
+                    <select class="form-control" name="baseCurrency">
+                        {% if currencies | length | default(false) %}
+                            {% for currency in currencies %}
+                                <option value="{{ currency.code }}">{{ currency.name }}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Default Display Currency</label>
+                    <select class="form-control" name="displayCurrency">
+                        {% if currencies | length | default(false) %}
+                            {% for currency in currencies %}
+                                <option value="{{ currency.code }}">{{ currency.name }}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Currency Rate</label>
+                    <input type="text" name="currencyRate" class="form-control" value="{{ setting.currencyRate }}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Front end language</label>
+                    <select class="form-control" name="frontendLanguage">
+                        <option value="en">English</option>
+                        <option value="vi">Vietnamese</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Back end language</label>
+                    <select class="form-control" name="backendLanguage">
+                        <option value="en">English</option>
+                        <option value="vi">Vietnamese</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Next step</button>
+    </form>
+{% endblock %}

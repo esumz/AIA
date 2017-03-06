@@ -1,0 +1,135 @@
+{% extends '../../index.html' %}
+
+{% block title %}Metronic | Admin Product Attribute Page{% endblock %}
+
+{% block pageStyles %}{% endblock %}
+
+{% set sidebarActive = 'ecommerce' %}
+
+{% block mainContent %}
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+<div class="page-content">
+<!-- BEGIN STYLE CUSTOMIZER -->
+{% include '../../elements/styleCustomize.html' %}
+<!-- END STYLE CUSTOMIZER -->
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Attribute Group <small>management</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/admin">Home</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">ECommerce</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Attribute Group</a>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-edit"></i>List
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="btn-group">
+                        <a href="#" data-toggle="modal" class="btn green create-attribute-group-btn">
+                            Add New <i class="fa fa-plus"></i>
+                        </a>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered list-attribute-group" id="sample_editable_1">
+                    <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Attributes
+                        </th>
+                        <th>
+                            Edit
+                        </th>
+                        <th>
+                            Delete
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if attributeGroups | default(false) %}
+                    {% for group in attributeGroups %}
+                    <tr data-id="{{ group.id }}">
+                        <td>
+                            <span class="name">{{ group.name }}</span> (<a class="add-field-group" href="#">Add attribute</a>)
+                        </td>
+                        <td>
+                            <span class="description">{{ group.description }}</span>
+                        </td>
+                        <td>
+                            {% if group.fields | default(false) %}
+                                <ol>
+                                    {% for field in group.fields %}
+                                    <li><a class="remove-field-group" href="{{ 'adAttr_field_remove' | url({'groupId': group.id, 'fieldId': field.id}) }}">Remove</a> - {{ field.name }}</li>
+                                    {% endfor %}
+                                </ol>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a class="edit-item" href="javascript:;" data-modal="#create-attribute-group-form">
+                                Edit </a>
+                        </td>
+                        <td>
+                            <a class="delete" href="javascript:;" data-route="{{ 'adAttr_group_delete' | url({'id': group.id}) }}">
+                                Delete </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+<!-- END PAGE CONTENT -->
+</div>
+</div>
+
+<!-- Form add new field for attribute group -->
+{% include './elements/fieldForm.html' %}
+
+<!-- Form add new attribute group -->
+{% include './elements/groupForm.html' %}
+
+<!-- END CONTENT -->
+{% endblock %}
+
+{% block pagePlugins %}{% endblock %}
+
+{% block pageScripts %}
+    {% parent %}
+    <script src="/assets/admin/printshop/eCommerce/attribute.js"></script>
+{% endblock %}
+

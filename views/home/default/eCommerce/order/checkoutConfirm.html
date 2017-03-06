@@ -1,0 +1,54 @@
+<div class="table-wrapper-responsive">
+    <table>
+        <tr>
+            <th class="checkout-image">Image</th>
+            <th class="checkout-description">Description</th>
+            <th class="checkout-quantity">Quantity</th>
+            <th class="checkout-price">Price</th>
+            <th class="checkout-total">Total</th>
+        </tr>
+        {% if products | length | default(false) %}
+            {% for product in products %}
+                <tr>
+                    <td class="checkout-image">
+                        <a href="{{ 'product_view' | url({'alias': product.id}) }}"><img src="http://placehold.it/60x90" alt="{{ product.name }}"></a>
+                    </td>
+                    <td class="checkout-description">
+                        <h3><a href="{{ 'product_view' | url({'alias': product.id}) }}">{{ product.name }}</a></h3>
+                        <p>{{ product.description | truncate(50) }}</p>
+                    </td>
+                    <td class="checkout-quantity">{{ qtyInfo[product.id] }}</td>
+                    <td class="checkout-price"><strong>{{ product.price | price }}</strong></td>
+                    <td class="checkout-total"><strong>{{ (product.price * qtyInfo[product.id]) | price }}</strong></td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </table>
+</div>
+<div class="checkout-total-block">
+    <ul>
+        <li>
+            <em>Sub total</em>
+            <strong class="price">{{ setting.displayCurrency.symb }}{{ subTotal }}</strong>
+        </li>
+        <li>
+            <em>Shipping cost</em>
+            <strong class="price">{{ setting.displayCurrency.symb }}{{ shippingCost }}</strong>
+        </li>
+        <li>
+            <em>Eco Tax</em>
+            <strong class="price">{{ setting.displayCurrency.symb }}{{ tax }}</strong>
+        </li>
+        <li>
+            <em>VAT</em>
+            <strong class="price">{{ setting.displayCurrency.symb }}{{ vat }}</strong>
+        </li>
+        <li class="checkout-total-price">
+            <em>Total</em>
+            <strong class="price">{{ setting.displayCurrency.symb }}{{ total }}</strong>
+        </li>
+    </ul>
+</div>
+<div class="clearfix"></div>
+<button class="btn btn-primary pull-right step-six-submit" data-route="{{ 'product_order' | url() }}" type="submit" id="button-confirm">Confirm Order</button>
+<button type="button" class="btn btn-default checkout-cancel pull-right margin-right-20">Cancel</button>

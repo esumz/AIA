@@ -1,0 +1,30 @@
+{% if users | default(false) and not search | default(false) %}
+    {% for user in users %}
+        <tr data-id="{{ user.id }}">
+            <td>
+                <span class="first-name">{{ user.firstName }}</span>
+                <span class="last-name">{{ user.lastName }}</span>
+            </td>
+            <td>
+                <span class="email">{{ user.email }}</span>
+            </td>
+            <td>
+                <span class="is-active">{{ user.isActive }}</span>
+            </td>
+            <td>
+                <span class="group" data-id="{% if user.group %}{{ user.group.id }}{% endif %}">{% if user.group %}{{ user.group.name }}{% else %}undefined{% endif %}</span>
+            </td>
+            <td class="center">
+                <span class="created">{{ user.created | date('d-m-Y') }}</span>
+            </td>
+            <td>
+                <a class="edit-item" href="javascript:;" data-modal="#create-user-form">
+                    Edit </a>
+            </td>
+            <td>
+                <a class="delete" href="javascript:;" data-route="{{ 'adUser_delete' | url({'id': user.id}) }}">
+                    Delete </a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endif %}

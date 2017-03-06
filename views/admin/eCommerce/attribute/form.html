@@ -1,0 +1,40 @@
+{% if attributeGroup | default(false) %}
+    {% for attribute in attributeGroup.fields %}
+        <div class="form-group">
+            <label class="control-label col-md-2">{{ attribute.name }}</label>
+            <div class="col-md-10">
+                {% if attribute.type == 'shortText' %}
+                    <input class="form-control" type="text" name="{{ attribute.name }}" value="{{ attribute.default }}" {% if attribute.required == true %}required="required"{% endif %}>
+
+                {% elseif attribute.type == 'longText' %}
+                    <textarea class="form-control" name="{{ attribute.name }}" {% if attribute.required == true %}required="required"{% endif %}>{{ attribute.default }}</textarea>
+
+                {% elseif attribute.type == 'multiSelect' %}
+                    <div class="checkbox-list">
+                        {% for value in attribute.values %}
+                            <label>
+                                <input type="checkbox" name="{{ attribute.name }}" value="{{ value }}" {% if attribute.default == value %}checked{% endif %}> {{ value }}</label>
+                        {% endfor %}
+                    </div>
+
+                {% elseif attribute.type == 'singleSelect' %}
+                    <div class="radio-list">
+                        {% for value in attribute.values %}
+                            <label>
+                                <input type="radio" name="{{ attribute.name }}" value="{{ value }}" {% if attribute.default == value %}checked{% endif %}> {{ value }}</label>
+                        {% endfor %}
+                    </div>
+
+                {% elseif attribute.type == 'selectList' %}
+                    <select class="form-control" name="{{ attribute.name }}" {% if attribute.required == true %}required="required"{% endif %}>
+                        <option value="">Select option</option>
+                        {% for value in attribute.values %}
+                            <option value="{{ value }}" {% if attribute.default == value %}selected{% endif %}>{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+
+{% endif %}

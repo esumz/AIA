@@ -1,0 +1,24 @@
+{% extends '../../index.html' %}
+
+{% block body %}
+    {% include '../elements/slide.html' %}
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-3">
+                {% include './sidebar.html' %}
+            </div>
+            <div class="col-md-9">
+                {% include './list.html' %}
+            </div>
+        </div>
+
+        <hr>
+
+        <footer>
+            <p>&copy; Company 2014</p>
+        </footer>
+    </div> <!-- /container -->
+
+{% endblock %}

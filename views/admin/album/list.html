@@ -1,0 +1,22 @@
+{% if albums | default(false) and not search | default(false) %}
+    {% for album in albums %}
+        <tr data-id="{{ album.id }}">
+            <td>
+                <span class="name">{{ album.name }}</span>
+            </td>
+            <td>
+                <span class="description">{{ album.description }}</span>
+            </td>
+            <td>
+                <span class="published">{{ album.published }}</span>
+            </td>
+            <td class="center">
+                <span class="created">{{ album.created | date('d-m-Y') }}</span>
+            </td>
+            <td>
+                <a class="delete" href="javascript:;" data-route="{{ 'adAlbum_delete' | url({'id': album.id}) }}">
+                    Delete </a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endif %}

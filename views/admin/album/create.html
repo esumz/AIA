@@ -1,0 +1,213 @@
+{% extends '../index.html' %}
+
+{% block title %}Admin | Album Page{% endblock %}
+
+{% block pageStyles %}
+    {{ 'adAlbum-create.min.css' | cssCompress([
+        '/assets/global/plugins/dropzone/css/dropzone.css',
+        '/assets/global/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css',
+        '/assets/global/plugins/jquery-file-upload/css/jquery.fileupload.css',
+        '/assets/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css',
+        '/assets/global/plugins/fancybox/source/jquery.fancybox.css',
+    ]) | raw }}
+{% endblock %}
+
+{% set sidebarActive = 'albums' %}
+
+{% block mainContent %}
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+    <div class="page-content">
+    <!-- BEGIN STYLE CUSTOMIZER -->
+    {% include '../elements/styleCustomize.html' %}
+    <!-- END STYLE CUSTOMIZER -->
+    <!-- BEGIN PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+            <h3 class="page-title">
+                Album <small>panel</small>
+            </h3>
+            <ul class="page-breadcrumb breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>
+                    <a href="{{ 'admin_home_page' | url() }}">Home</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="{{ 'adAlbum_list' | url() }}">Album</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="#">Panel</a>
+                </li>
+            </ul>
+            <!-- END PAGE TITLE & BREADCRUMB-->
+        </div>
+    </div>
+    <!-- END PAGE HEADER-->
+    <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <form action="/upload-small-file" class="dropzone" id="my-dropzone">
+                    <input type="hidden" name="folder" value="album">
+                </form>
+            </div>
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Info</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal form-bordered create-album-form" action="{{ 'adAlbum_create' | url() }}" method="POST">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Title</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" name="name" value="" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Description</label>
+                                    <div class="col-md-10">
+                                        <textarea class="form-control" type="text" name="description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Published</label>
+                                    <div class="col-md-10">
+                                        <div class="radio-list">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="published" value="1"> Yes </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="published" value="0" checked> No </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" style="padding: 15px 25px;">
+                                        <button type="submit" class="btn green pull-right">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- END PAGE CONTENT-->
+    </div>
+    </div>
+    <!-- END CONTENT -->
+
+    <!-- The blueimp Gallery widget -->
+    <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
+        <div class="slides">
+        </div>
+        <h3 class="title"></h3>
+        <a class="prev">
+            ‹ </a>
+        <a class="next">
+            › </a>
+        <a class="close white">
+        </a>
+        <a class="play-pause">
+        </a>
+        <ol class="indicator">
+        </ol>
+    </div>
+    {% raw %}
+        <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+        <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+            <tr class="template-upload fade">
+                <td>
+                    <span class="preview"></span>
+                </td>
+                <td>
+                    <p class="name">{%=file.name%}</p>
+                    <strong class="error text-danger label label-danger"></strong>
+                </td>
+                <td>
+                    <p class="size">Processing...</p>
+                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                    </div>
+                </td>
+                <td>
+                    {% if (!i && !o.options.autoUpload) { %}
+                        <button class="btn blue start" disabled>
+                            <i class="fa fa-upload"></i>
+                            <span>Start</span>
+                        </button>
+                    {% } %}
+                    {% if (!i) { %}
+                        <button class="btn red cancel">
+                            <i class="fa fa-ban"></i>
+                            <span>Cancel</span>
+                        </button>
+                    {% } %}
+                </td>
+            </tr>
+        {% } %}
+        </script>
+        <!-- The template to display files available for download -->
+        <script id="template-download" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+            <tr class="template-download fade">
+                <td>
+                    <span class="preview">
+                        {% if (file.thumbnailUrl) { %}
+                            <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                        {% } %}
+                    </span>
+                </td>
+                <td>
+                    <p class="name">
+                        {% if (file.url) { %}
+                            <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+                        {% } else { %}
+                            <span>{%=file.name%}</span>
+                        {% } %}
+                    </p>
+                    {% if (file.error) { %}
+                        <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+                    {% } %}
+                </td>
+                <td>
+                    <span class="size">{%=o.formatFileSize(file.size)%}</span>
+                </td>
+                <td>
+                    {% if (file.deleteUrl) { %}
+                        <button class="btn red delete btn-sm" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                            <i class="fa fa-trash-o"></i>
+                            <span>Delete</span>
+                        </button>
+                        <input type="checkbox" name="delete" value="1" class="toggle">
+                    {% } else { %}
+                        <button class="btn yellow cancel btn-sm">
+                            <i class="fa fa-ban"></i>
+                            <span>Cancel</span>
+                        </button>
+                    {% } %}
+                </td>
+            </tr>
+        {% } %}
+    </script>
+    {% endraw %}
+{% endblock %}
+
+{% block pagePlugins %}
+    <script src="/assets/global/plugins/dropzone/dropzone.js"></script>
+{% endblock %}
+
+{% block pageScripts %}
+    {{ 'adAlbum-create-script.min.js' | jsCompress([
+        '/assets/global/scripts/metronic.js',
+        '/assets/admin/layout/scripts/layout.js',
+        '/assets/admin/layout/scripts/quick-sidebar.js',
+        '/assets/admin/printshop/album/form-dropzone.js'
+    ]) | raw }}
+{% endblock %}

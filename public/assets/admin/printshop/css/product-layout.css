@@ -1,0 +1,52 @@
+.page-layout {
+  border: 1px solid #e0e0e0;
+  font-size: 15px;
+}
+.page-layout .block {
+  padding: 5px;
+}
+.page-layout .block:not(.parent):hover {
+  background: none repeat scroll 0 0 #ddd;
+  cursor: pointer;
+}
+.page-layout .block .content {
+  background: none repeat scroll 0 0 #eeeeee;
+  text-align: center;
+  height: 100%;
+}
+.page-layout .top-bar {
+  height: 40px;
+}
+.page-layout .menu {
+  height: 80px;
+}
+.page-layout .slide {
+  height: 200px;
+}
+#tool-box-layout {
+  display: none;
+  height: 100%;
+  width: 235px;
+  border-right: 1px solid #ccc;
+  position: fixed;
+  top: 46px;
+  left: 0;
+  z-index: 10000;
+  background: none repeat scroll 0 0 #fafafa;
+  padding: 20px 15px 15px 0;
+}
+#block-view-content .block-preview {
+  height: 50px;
+  background: #f5f5f5;
+  padding: 0;
+  overflow: hidden;
+}
+#block-view-content .add-html-panel {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#block-view-content .add-html-panel textarea {
+  width: 100%;
+}

@@ -1,0 +1,165 @@
+#design-tool-bar {
+  display: block;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  height: 45px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 8px;
+  z-index: 1002;
+}
+#design-tool-bar .actions {
+  list-style-type: none;
+  padding: 5px 15px;
+}
+#design-tool-bar .actions li {
+  display: inline;
+  color: #ccc;
+  font-size: 15px;
+  padding: 10px;
+  cursor: pointer;
+}
+#design-tool-bar .actions li:hover {
+  color: #fff;
+}
+#design-tool-bar .save-options a{
+    color: #ccc;
+    padding: 5px;
+}
+#design-tool-bar .hide-tool-bar {
+  color: #ccc;
+  font-size: 18px;
+  margin: 7px;
+  cursor: pointer;
+}
+#component-panel,
+#template-panel {
+  display: none;
+  position: fixed;
+  bottom: 44px;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1002;
+}
+#component-panel .list-component,
+#template-panel .list-template {
+    padding: 0;
+    border-top: 3px solid #ff3300;
+}
+#component-panel ul.list-component,
+#template-panel ul.list-component,
+#component-panel .list-template,
+#template-panel .list-template {
+  list-style-type: none;
+}
+#component-panel ul.list-component li,
+#template-panel ul.list-component li,
+#component-panel .list-template li,
+#template-panel .list-template li {
+  color: #8B8B8B;
+  padding: 6px 10px;
+}
+#component-panel .list-component li:hover,
+#template-panel .list-template li:hover {
+    background: #191919;
+}
+#component-panel .list-component li {
+     cursor: move;
+ }
+#template-panel .list-template li {
+    cursor: pointer;
+}
+#component-panel .list-component li a {
+    text-decoration: none;
+    color: #ccc;
+    cursor: move;
+}
+#template-panel .list-template li a {
+    text-decoration: none;
+    color: #ccc;
+    cursor: pointer;
+}
+.one-row {
+  background: #fafafa;
+  border: 1px dashed #BDBDBD;
+  margin-top: -1px;
+  height: auto;
+}
+.component-box {
+  position: relative;
+  float: left;
+}
+#component-tool-box {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+}
+#component-tool-box .content {
+  position: relative;
+}
+#component-tool-box .content .main-actions {
+  position: absolute;
+  top: 0;
+  left: 0;
+  list-style-type: none;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+  color: #ccc;
+}
+#component-tool-box .content .main-actions li {
+  cursor: pointer;
+}
+#component-tool-box .content .main-actions li:hover {
+  color: #fff;
+}
+#component-tool-box .content .more-actions {
+  position: absolute;
+  top: 0;
+  left: 27px;
+  display: none;
+  width: 250px;
+  background: #FFF;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+#row-tool-box {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  right: 150px;
+  z-index: 1001;
+}
+#row-tool-box .content {
+  position: relative;
+}
+#row-tool-box .content .main-actions {
+  position: absolute;
+  top: 0;
+  left: 0;
+  list-style-type: none;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+  color: #ccc;
+  width: 150px;
+  height: 30px;
+}
+#row-tool-box .content .main-actions li {
+  cursor: pointer;
+  display: inline;
+}
+#row-tool-box .content .main-actions li:hover {
+  color: #fff;
+}
+#row-tool-box .content .more-actions {
+  position: absolute;
+  top: 30px;
+  right: -150px;
+  display: none;
+  width: 250px;
+  background: #FFF;
+  padding: 5px;
+  border: 1px solid #ccc;
+}

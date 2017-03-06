@@ -1,0 +1,1 @@
+var Tasks=function(){return{initDashboardWidget:function(){$('.task-list input[type="checkbox"]').change(function(){$(this).is(":checked")?$(this).parents("li").addClass("task-done"):$(this).parents("li").removeClass("task-done")})}}}();

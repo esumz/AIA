@@ -1,0 +1,34 @@
+{
+  "name": "AIA",
+  "version": "1.7.0",
+  "description": "CRM NodeJS",
+  "main": "index.js",
+  "dependencies": {
+    "total.js": "^1.6.0",
+    "adm-zip": "0.4.4",
+    "async": "0.9.0",
+    "filestorage": "1.0.8",
+    "formidable": "1.0.15",
+    "fs-extra": "0.11.0",
+    "mongoose": "3.8.12",
+    "node-minify": "0.10.5",
+    "npsystats": "0.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@heroku.com:nodecart.git"
+  },
+  "keywords": [
+    "total",
+    "framework",
+    "web",
+    "nodejs",
+    "crm"
+  ],
+  "author": "MinhUoc",
+  "license": "MIT"
+}

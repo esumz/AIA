@@ -1,0 +1,81 @@
+{% extends '../../index.html' %}
+
+{% block title %}Admin | Setting Page{% endblock %}
+
+{% block pageStyles %}{% endblock %}
+
+{% set sidebarActive = 'setting' %}
+
+{% block mainContent %}
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+<div class="page-content">
+{% include '../../elements/styleCustomize.html' %}
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Setting <small> management</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/admin">Home</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Setting</a>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+    <div class="tabbable tabbable-custom tabbable-full-width">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#tab_1_1" data-toggle="tab">
+                    General </a>
+            </li>
+            <li>
+                <a href="#tab_1_2" data-toggle="tab">
+                    Cache </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1_1">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet-body form">
+                            {% include './generalForm.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab_1_2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet-body form">
+                            {% include 'cacheForm.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- END PAGE CONTENT -->
+</div>
+</div>
+<!-- END CONTENT -->
+{% endblock %}
+
+{% block pagePlugins %}{% endblock %}
+
+{% block pageScripts %}
+    {% parent %}
+    <script src="/assets/admin/printshop/setting/main.js"></script>
+{% endblock %}
+

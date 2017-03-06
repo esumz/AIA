@@ -1,0 +1,15 @@
+{
+    "home": {
+        "title": "Home",
+        "logout": "Log out",
+        "login": "Log in",
+        "registration": "Registration"
+    },
+    "product": {
+        "title": "Product",
+        "checkout": "Checkout"
+    },
+    "blog": {
+        "title": "Blog"
+    }
+}

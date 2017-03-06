@@ -1,0 +1,29 @@
+{% if posts | default(false) and not search | default(false) %}
+    {% for post in posts %}
+        <tr data-id="{{ post.id }}">
+            <td>
+                <span class="first-name">{{ post.title }}</span>
+            </td>
+            <td>
+                <span class="published">{{ post.published }}</span>
+            </td>
+            <td>
+                <span class="username">{{ post.user.firstName }} {{ post.user.lastName }}</span>
+            </td>
+            <td>
+                <span class="category" data-id="{% if post.category %}{{ post.category.id }}{% endif %}">{% if post.category %}{{ post.category.name }}{% else %}undefined{% endif %}</span>
+            </td>
+            <td class="center">
+                <span class="created">{{ post.created | date('d-m-Y') }}</span>
+            </td>
+            <td>
+                <a class="edit-item" href="/admin/cms/post-edit/{{ post.id }}">
+                    Edit </a>
+            </td>
+            <td>
+                <a class="delete" href="javascript:;" data-route="/admin/cms/post-delete/{{ post.id }}">
+                    Delete </a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endif %}

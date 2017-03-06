@@ -1,0 +1,9 @@
+{% if products | length | default(false) %}
+    {% for product in products %}
+        <div class="col-md-4" style="margin-top: 10px;">
+            <h3><a href="{{ 'product_view' | url({'alias': product.alias}) }}">{{ product.name | truncate(25) }}</a></h3>
+            <img src="http://placehold.it/200x300">
+            <p><a class="btn btn-default" href="#" role="button">Add to cart &raquo;</a></p>
+        </div>
+    {% endfor %}
+{% endif %}

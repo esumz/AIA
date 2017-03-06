@@ -1,0 +1,160 @@
+<div id="design-tool-bar">
+    <ul class="actions col-md-8">
+        <li class="action" data-action="template" data-box="template-panel">
+            <span class="glyphicon glyphicon-th-large"></span>
+            Layouts
+        </li>
+        <li class="action" data-action="component" data-box="component-panel">
+            <span class="glyphicon glyphicon-leaf"></span>
+            Widgets
+        </li>
+    </ul>
+    <div class="save-options col-md-4">
+        <a href="{{ 'page_view' | url({'link': page.link}) }}" target="_blank" class="pull-right">
+            <span class="glyphicon glyphicon-eye-open"></span> View
+        </a>
+        <a href="{{ 'page_save' | url({'id': ''}) }}" class="save-page new pull-right" style="margin-right: 5px;">
+            <span class="glyphicon glyphicon-floppy-save"></span> Save new
+        </a>
+        <a href="{{ 'page_save' | url({'id': page.id}) }}" data-name="{{ page.name }}" data-link="{{ page.link }}" class="save-page pull-right" style="margin-right: 5px;">
+            <span class="glyphicon glyphicon-saved"></span> Save
+        </a>
+    </div>
+</div>
+
+<div class="extra-box" id="component-panel">
+    <ul class="list-component" data-url="/component/get/">
+        {% if components | default(false) %}
+            {% for component in components %}
+                <li class="item" data-name="{{ component.name }}" class="tooltip" data-toggle="tooltip" data-placement="top" title="{{ component.title }}">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-leaf"></span> {{ component.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+</div>
+
+<div class="extra-box" id="template-panel">
+    <ul class="list-template" data-url="#">
+        <li class="item">
+            <a href="{{ 'page_design' | url({'link': ''}) }}">
+                <i class="glyphicon glyphicon-plus"></i> Create new
+            </a>
+        </li>
+        {% if pages | default(false) %}
+            {% for page in pages %}
+                <li class="item">
+                    <a href="{{ 'page_design' | url({'link': page.link}) }}">
+                        <span class="glyphicon glyphicon-th-large"></span> {{ page.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+</div>
+
+<div id="component-tool-box">
+    <div class="content">
+        <ul class="main-actions">
+            <li><span class="glyphicon glyphicon-arrow-up action" data-action="up"></span></li>
+            <li><span class="glyphicon glyphicon-arrow-down action" data-action="down"></span></li>
+            <li><span class="glyphicon glyphicon-arrow-left action" data-action="left"></span></li>
+            <li><span class="glyphicon glyphicon-arrow-right action" data-action="right"></span></li>
+            <li><span class="glyphicon glyphicon-plus-sign action" data-action="more"></span></li>
+            <li><span class="glyphicon glyphicon-trash action" data-action="delete"></span></li>
+        </ul>
+        <div class="more-actions">
+            <div class="row-fluid form-group">
+                <label class="col-md-4">Width</label>
+                <div class="input-group col-md-8">
+                    <input type="text" name="width" class="form-control property-value">
+                </div>
+            </div>
+            <div class="row-fluid form-group">
+                <label class="col-md-4">Height</label>
+                <div class="input-group col-md-8">
+                    <input type="text" name="height" class="form-control property-value">
+                </div>
+            </div>
+            <!--<div class="row-fluid form-group">-->
+                <!--<label class="col-md-4">Border</label>-->
+                <!--<div class="input-group col-md-8">-->
+                    <!--<input type="text" name="border" class="form-control property-value">-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="row-fluid form-group">
+                <label class="col-md-4">Padding</label>
+                <div class="input-group col-md-8">
+                    <input type="text" name="padding" class="form-control property-value">
+                </div>
+            </div>
+            <div class="row-fluid form-group">
+                <label class="col-md-4">Margin</label>
+                <div class="input-group col-md-8">
+                    <input type="text" name="margin" class="form-control property-value">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="row-tool-box">
+    <div class="content">
+        <ul class="main-actions">
+            <li><span class="glyphicon glyphicon-arrow-up action" data-action="up"></span></li>
+            <li><span class="glyphicon glyphicon-arrow-down action" data-action="down"></span></li>
+            <li><span class="glyphicon glyphicon-chevron-up action" data-action="above"></span></li>
+            <li><span class="glyphicon glyphicon-chevron-down action" data-action="below"></span></li>
+            <li><span class="glyphicon glyphicon-plus-sign action" data-action="more"></span></li>
+            <li><span class="glyphicon glyphicon-trash action" data-action="delete"></span></li>
+        </ul>
+        <div class="more-actions">
+            <div class="row-fluid form-group">
+                <label class="col-md-6">Height</label>
+                <div class="input-group col-md-6">
+                    <input type="text" name="height" class="form-control property-value">
+                </div>
+            </div>
+            <div class="row-fluid form-group">
+                <label class="col-md-6">Padding</label>
+                <div class="input-group col-md-6">
+                    <input type="text" name="padding" class="form-control property-value">
+                </div>
+            </div>
+            <div class="row-fluid form-group">
+                <label class="col-md-6">Margin</label>
+                <div class="input-group col-md-6">
+                    <input type="text" name="margin" class="form-control property-value">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="save-page-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Save page</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning" role="alert" style="display: none;"></div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control name" placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                    <label>Link</label>
+                    <input type="text" class="form-control link" placeholder="Link to page">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn save-template-btn btn-primary">Save</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

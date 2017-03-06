@@ -1,0 +1,27 @@
+<div class="owl-carousel owl-carousel5">
+    {% if bestViewers | length | default(false) %}
+        {% for product in bestViewers %}
+            <div>
+                <div class="product-item">
+                    <div class="pi-img-wrapper">
+                        <img src="http://placehold.it/250x350" class="img-responsive" alt="{{ product.name }}">
+                        <div>
+                            <a href="http://placehold.it/250x350" class="btn btn-default fancybox-button">Zoom</a>
+                            <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                        </div>
+                    </div>
+                    <h3><a href="{{ 'product_view' | url({'alias': product.alias}) }}">{{ product.name | truncate(25) }}</a></h3>
+                    <div class="pi-price">{{ product.price | price }}</div>
+                    <a href="#" class="btn btn-default add2cart"
+                       data-product-id="{{ product.id }}"
+                       data-product-alias="{{ product.alias }}"
+                       data-product-name="{{ product.name }}"
+                       data-product-price="{{ product.price | price(false) }}"
+
+                       >Add to cart</a>
+                    <div class="sticker sticker-sale"></div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>

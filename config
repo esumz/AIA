@@ -1,0 +1,62 @@
+// Both configuration (debug/release)
+
+name                            : AIA
+author                          : Esum
+secret                          : 3680e27e5e37035db3210ee8fa7ea6a4
+admin-route                     : /admin
+
+// Database connection info
+
+db-host                         : 127.0.0.1
+db-port                         : 27017
+db-name                         : dbAIA
+db-username                     : 
+db-password  					:
+
+//db-host                         : ds039550.mongolab.com
+//db-port                         : 39550
+//db-name                         : nodecartjs
+//db-username                     : thaoha
+//db-password                     : gk37919
+
+
+// Upload
+
+upload-folder                   : /upload
+file-extension-accept           : jpg,png,gif,rar,zip
+max-file-upload                 : 2000000
+image-extension-accept          : jpg,jpeg,png,gif
+max-image-upload                : 1000000
+
+// Mail settings
+
+mail.smtp                       : smtp.yourwebsite.com
+mail.smtp.options               : "{"secure":false,"port":25,"user":"","password":"","timeout":10000}"
+mail.address.from               : your@yourwebsite.com
+mail.address.reply              : your@yourwebsite.com
+mail.address.bcc                :
+
+// enable/disable static compilation
+
+allow-compile-js                   : false
+allow-compile-css                  : true
+
+// enable/disable HTML compression
+
+allow-compress-html                : true
+
+// In milliseconds
+default-request-timeout            : 10000
+
+// default image quality for framework.resize()
+default-image-quality              : 93
+
+// default time (in minutes) for clearing cache of resources
+default-interval-clear-resources   : 20
+
+// default time (in minutes) for clearing internal cache
+default-interval-clear-cache       : 3
+
+// default time (in minutes) for re-compile of precomiled views
+// Read more: framework.install('view', name, url);
+default-interval-precompile-views  : 61

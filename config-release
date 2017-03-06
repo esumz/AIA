@@ -1,0 +1,5 @@
+// IMPORTANT FOR HEROKU
+default-ip                     : auto
+default-port                   : auto
+default-image-converter        : im
+secret                         : 3680e27e5e37035db3210ee8fa7ea6a4

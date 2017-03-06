@@ -1,0 +1,13 @@
+<ul class="list-group margin-bottom-25 sidebar-menu">
+    {% set catalogs = 'catalogs' | thData() %}
+
+    {% if catalogs | length | default(false) %}
+        {% for catalog in catalogs %}
+            <li class="list-group-item clearfix">
+                <a href="{{ 'product_page_catalog' | url({'catalog': catalog.alias}) }}">
+                    <i class="fa fa-angle-right"></i> {{ catalog.name }} ({{ catalog.count }})
+                </a>
+            </li>
+        {% endfor %}
+    {% endif %}
+</ul>

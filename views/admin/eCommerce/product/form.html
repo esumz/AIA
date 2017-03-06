@@ -1,0 +1,346 @@
+{% extends '../../index.html' %}
+
+{% block title %}Admin | Product Form{% endblock %}
+
+{% block pageStyles %}
+    {{ 'adProduct-form.min.css' | cssCompress([
+        '/assets/global/plugins/bootstrap-summernote/summernote.css',
+        '/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
+        '/assets/global/plugins/jquery-tags-input/jquery.tagsinput.css',
+        '/assets/global/plugins/select2/select2.css',
+        '/assets/global/plugins/dropzone/css/dropzone.css',
+        '/assets/admin/pages/css/profile.css'
+    ]) | raw }}
+{% endblock %}
+
+{% set sidebarActive = 'ecommerce' %}
+
+{% block mainContent %}
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+<div class="page-content">
+{% include '../../elements/styleCustomize.html' %}
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Product <small>form</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li class="btn-group">
+                <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                    <span>Actions</span><i class="fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li>
+                        <a href="{{ 'adProduct_list' | url }}">All Products</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/admin">Home</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">ECommerce</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">Product</a>
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+<div class="col-md-12 blog-page">
+<div class="row">
+    <div class="col-md-12 col-sm-12 article-block">
+        <!-- BEGIN EXTRAS PORTLET-->
+        <div class="portlet box red tabbable">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Product Form
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="portlet-tabs product-tabs">
+                    <ul class="nav nav-tabs">
+                        <li>
+                            <a href="#product-attribute-tab" data-toggle="tab">
+                                Attributes </a>
+                        </li>
+                        <li>
+                            <a href="#product-gallery-tab" data-toggle="tab">
+                                Gallery </a>
+                        </li>
+                        <li class="active">
+                            <a href="#product-info-tab" data-toggle="tab">
+                                Basic info </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="product-info-tab">
+                            <form class="form-horizontal form-bordered create-product-form" action="{{ 'adProduct_save' | url }}" method="POST">
+                                <div class="form-body">
+                                    <input type="hidden" name="id" value="{% if product.id | default(false) %}{{ product.id }}{% endif %}">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Name</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" name="name" value="{% if product.name | default(false) %}{{ product.name }}{% endif %}" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Alias</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" type="text" name="alias" data-route="{{ 'adProduct_alias' | url }}" {% if product.alias | default(false) %}value="{{ product.alias }}" data-original="{{ product.alias }}"{% endif %} required="required">
+                                            <span class="help-block alias"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Price</label>
+                                        <div class="col-md-3">
+                                            <input class="form-control" type="number" min="0" name="price" value="{% if product.price | default(false) %}{{ product.price }}{% endif %}" required="required">
+                                            <span>[{{ setting.baseCurrency.code }}]</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Description</label>
+                                        <div class="col-md-10">
+                                            <div name="description" id="summernote_1">
+                                                {% if product.description | default(false) %}{{ product.description | raw }}{% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Avatar</label>
+                                        <div class="col-md-10">
+                                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                                    {% if product.avatar | default(false) %}
+                                                        <img src="uploads/{{ product.avatar }}" alt=""/>
+                                                    {% else %}
+                                                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""/>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
+                                                </div>
+                                                <div>
+                                                    <span class="btn default btn-file">
+                                                    <span class="fileinput-new">
+                                                    Select image </span>
+                                                    <span class="fileinput-exists">
+                                                    Change </span>
+                                                    <input class="product-avatar-upload" type="file" data-url="/upload-small-file">
+                                                    <input type="hidden" name="avatar" value="{% if product.avatar | default(false) %}{{ product.avatar }}{% endif %}">
+                                                    </span>
+                                                    <a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">
+                                                        Remove </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2" for="selectCategory">Catalog</label>
+                                        <div class="col-md-10">
+                                            <select class="form-control" id="selectCategory" name="catalog">
+                                                <option value="">Select catalog</option>
+                                                {% if product.catalog | default(false) %}
+                                                    {% set currentCatalog = product.catalog.id %}
+                                                {% else %}
+                                                    {% set currentCatalog = null %}
+                                                {% endif %}
+
+                                                {% if catalogs | default(false) %}
+                                                    {% for catalog in catalogs %}
+                                                        <option value="{{ catalog.id }}" {% if catalog.id == currentCatalog %}selected{% endif %}>{{ catalog.name }}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Published</label>
+                                        <div class="col-md-10">
+                                            <div class="radio-list">
+                                                {% if product | default(false) %}
+                                                    {% set isPublished = product.published %}
+                                                {% else %}
+                                                    {% set isPublished = true %}
+                                                {% endif %}
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="published" value="1" {% if isPublished == true %}checked{% endif %}> Yes </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="published" value="0" {% if isPublished == false %}checked{% endif %}> No </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="form-group">-->
+                                        <!--<label class="control-label col-md-2">Date</label>-->
+                                        <!--<div class="col-md-4 col-sm-12">-->
+                                            <!--<div class="input-group date form_datetime">-->
+                                                <!--<input type="text" size="16" name="created" value="{% if product.created | default(false) %}{{ product.created | date('d M Y h:i') }}{% endif %}" readonly class="form-control">-->
+                                                <!--<span class="input-group-btn">-->
+                                                <!--<button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>-->
+                                                <!--</span>-->
+                                            <!--</div>-->
+                                            <!--&lt;!&ndash; /input-group &ndash;&gt;-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Tags</label>
+                                        <div class="col-md-10 col-sm-12">
+                                            <input id="tags-product-input" name="tags" type="text" class="form-control tags" value="{% if product.tags | default(false) %}{{ product.tagNames }}{% endif %}"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12" style="padding: 15px 25px;">
+                                            <button type="submit" class="btn green pull-right">
+                                                {% if product | default(false) %}
+                                                    Save change
+                                                {% else %}
+                                                    Create new
+                                                {% endif %}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="product-gallery-tab">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="note note-success">
+                                        <p>You need save product info first</p>
+                                        <input type="hidden" class="form-control search-album select2" data-route="{{ 'adAlbum_search' | url() }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form action="/upload-small-file" class="dropzone" id="product-gallery-upload">
+                                <input type="hidden" name="folder" value="album">
+                                {% if product.gallery | default(false) and product.gallery.images | length %}
+                                    {% for image in product.gallery.images %}
+                                        <input type="hidden" name="images" value="{{ image }}">
+                                    {% endfor %}
+                                <div class="dz-message"></div>
+                                {% endif %}
+                            </form>
+
+                            {% if (product and product.gallery) | default(false) %}
+                                {% set galleryUrl = 'adAlbum_update' | url({'id': product.gallery.id}) %}
+                            {% else %}
+                                {% set galleryUrl = 'adAlbum_create' | url() %}
+                            {% endif %}
+                            <form class="form-horizontal form-bordered product-gallery-form" action="{{ 'adAlbum_create' | url() }}" method="POST">
+                                <div class="form-body">
+                                    <input type="hidden" name="published" value="1">
+                                    {% if product.gallery | default(false) and product.gallery.images | length %}
+                                        {% for image in product.gallery.images %}
+                                            <input type="hidden" name="images" value="{{ image }}">
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-md-12" style="padding: 15px 25px;">
+                                            <button type="submit" class="btn green pull-right {% if (product and product.gallery) | default(false) %}disabled{% endif %}">
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="product-attribute-tab">
+                            <form class="form-horizontal form-bordered attribute-product-form" data-action="{{ 'adAttr_product_save' | url({'productId': ''}) }}" method="POST" {% if product | default(false) %}action="{{ 'adAttr_product_save' | url({'productId': product.id}) }}"{% endif %}>
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="note note-success">
+                                                <p>You need save product info first</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if not product | default(false) %}
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">Select attribute group</label>
+                                            <div class="col-md-3" style="display: inline;">
+                                                <select class="form-control select-attribute-group">
+                                                    <option value="">Select group</option>attributeGroups
+                                                    {% if attributeGroups | default(false) %}
+                                                        {% for attributeGroup in attributeGroups %}
+                                                            <option value="{{ attributeGroup.id }}">{{ attributeGroup.name }}</option>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </select>
+                                            </div>
+                                            <a class="btn btn-default" href="{{ 'adAttr_group_list' | url }}" style="margin-top: 9px;">New group</a>
+                                        </div>
+                                    {% endif %}
+                                    <div class="field-wrapper">
+                                        <!-- if exist some field for this product -->
+                                        {% if product | default(false) %}
+                                            {% for field in product.attribute.fields %}
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">{{ field.name }}</label>
+                                                    <div class="col-md-10 input-value">
+                                                        <textarea class="form-control field-value" name="{{ field.name }}" placeholder="Enter value" required="required">{{ field.value }}</textarea>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12" style="padding: 15px 25px;">
+                                            <button type="submit" class="btn green pull-right">
+                                                Save
+                                            </button>
+                                            <a class="btn default pull-right" href="#add-field-form" data-toggle="modal">
+                                                Add attribute
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!-- Form add new field -->
+                            {% include '../attribute/elements/addField.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+
+</div>
+{% endblock %}
+
+{% block pagePlugins %}
+    {{ 'adProduct-form-plugin.min.js' | jsCompress([
+        '/assets/global/plugins/bootstrap-summernote/summernote.min.js',
+        '/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js',
+        '/assets/global/plugins/jquery-file-upload/js/jquery.iframe-transport.js',
+        '/assets/global/plugins/jquery-file-upload/js/jquery.fileupload.js',
+        '/assets/global/plugins/jquery-tags-input/jquery.tagsinput.min.js',
+        '/assets/global/plugins/select2/select2.min.js',
+        '/assets/global/plugins/dropzone/dropzone.js'
+    ]) | raw }}
+{% endblock %}
+
+{% block pageScripts %}
+    {% parent %}
+    {{ 'adProduct-form-script.min.js' | jsCompress([
+        '/assets/admin/printshop/album/form-dropzone.js',
+        '/assets/admin/printshop/eCommerce/product.js',
+        '/assets/admin/printshop/eCommerce/product-gallery.js'
+    ]) | raw }}
+{% endblock %}

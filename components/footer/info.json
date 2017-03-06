@@ -1,0 +1,9 @@
+{
+    "title": "Footer",
+    "description": "Description for footer",
+    "name": "footer",
+    "version": "1.0.1",
+    "author": "ThaoHa",
+    "styles": ["style.css", "style-shop.css"],
+    "scripts": ["script.js"]
+}

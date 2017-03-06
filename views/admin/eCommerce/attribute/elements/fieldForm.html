@@ -1,0 +1,64 @@
+<!-- ADD NEW MODAL FORM-->
+<div class="modal fade" id="add-field-group-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="create-group" data-action="{{ 'adAttr_field_add' | url({'id': ''}) }}" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Add attribute name</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-dismissible display-hide" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <span class="alert-content"></span>
+                    </div>
+                    <input type="hidden" name="id" value="">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" name="name" placeholder="Enter name" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" name="description" placeholder="Enter description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Default value</label>
+                        <input type="text" class="form-control" name="default" placeholder="Enter default value">
+                    </div>
+                    <div class="form-group">
+                        <label>Required</label>
+                        <div class="radio-list">
+                            <label class="radio-inline">
+                                <input type="radio" name="required" value="1"> Yes </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="required" value="0"> No </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select class="form-control" id="selectAttributeType" name="type">
+                            <option value="">Select type</option>
+                            {% if attributeTypes | default(false) %}
+                                {% for type in attributeTypes %}
+                                    <option value="{{ type.value }}">{{ type.name }}</option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div class="form-group value-input" style="display: none;">
+                        <label>Values for select type</label>
+                        <input type="text" class="form-control" name="values" placeholder="Each value separate by one comma">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue">Send</button>
+                    <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END MODAL FORM-->

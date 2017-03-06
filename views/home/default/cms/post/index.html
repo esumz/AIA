@@ -1,0 +1,31 @@
+{% extends '../../index.html' %}
+
+{% block body %}
+
+<div class="main">
+    <div class="container">
+        <div class="row margin-bottom-40">
+            <div class="col-md-12 col-sm-12">
+                <h1>Blog Page</h1>
+
+                <div class="content-page">
+                    {% block blogBody %}
+                    <div class="row">
+                        <div class="col-md-9 col-sm-9 blog-posts">
+                            {% include './list.html' %}
+                        </div>
+                        {% include '../elements/right.html' %}
+                    </div>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="/assets/frontend/layout/scripts/layout.js" type="text/javascript"></script>
+    <script src="/assets/frontend/printshop/cms/post.js" type="text/javascript"></script>
+{% endblock %}

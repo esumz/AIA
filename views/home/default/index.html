@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+    {% set setting = 'setting' | thData %}
+    <meta charset="utf-8">
+    <title>{% block title %}{{ setting.title | default('') }}{% endblock %}</title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta content="{% block description %}{{ setting.description | default('') }}{% endblock %}" name="description">
+    <meta content="{% block keywords %}{{ setting.keywords | default('') }}{% endblock %}" name="keywords">
+    <meta content="netbase" name="author">
+
+    <meta property="og:site_name" content="-CUSTOMER VALUE-">
+    <meta property="og:title" content="-CUSTOMER VALUE-">
+    <meta property="og:description" content="-CUSTOMER VALUE-">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="-CUSTOMER VALUE-"><!-- link to image for social -->
+    <meta property="og:url" content="-CUSTOMER VALUE-">
+
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css"><!--- fonts for slider on the index page -->
+    <link href="/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    {% block styleSheets %}
+    {{ 'home.min.css' | cssCompress([
+        '/assets/global/css/components.css',
+        '/assets/frontend/layout/css/style.css',
+        '/assets/frontend/pages/css/style-shop.css',
+        '/assets/frontend/pages/css/style-layer-slider.css',
+        '/assets/frontend/layout/css/style-responsive.css',
+        '/assets/frontend/layout/css/themes/red.css',
+        '/assets/frontend/layout/css/custom.css'
+    ]) | raw }}
+    {% endblock %}
+</head>
+<body class="ecommerce">
+    {% set user = 'user' | thData %}
+    {% include './elements/styleCustomizer.html' %}
+    {% include './elements/header.html' %}
+
+    {% block body %}{% endblock %}
+
+    {% include './elements/footer.html' %}
+
+    <!--[if lt IE 9]>
+    <script src="/assets/global/plugins/respond.min.js"></script>
+    <![endif]-->
+    <script src="/assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
+    {{ 'home.min.js' | jsCompress([
+        '/assets/global/plugins/bootstrap/js/bootstrap.min.js',
+        '/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.js',
+        '/assets/global/plugins/jquery.cokie.min.js',
+        '/assets/global/plugins/bootbox/bootbox.min.js',
+        '/assets/global/printshop/plugins/jquery.form.js',
+        '/assets/frontend/printshop/eCommerce/order.js'
+    ]) | raw }}
+    <script src="/assets/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+    <script src="/assets/frontend/layout/scripts/back-to-top.js" type="text/javascript"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

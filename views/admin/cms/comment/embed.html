@@ -1,0 +1,57 @@
+{% if comments | default(false) %}
+    {% for comment in comments %}
+        <!--end media-->
+        <div class="media comment-item" data-id="{{ comment.id }}">
+            <a href="#" class="pull-left">
+                <img alt="" src="uploads/{{ comment.avatar }}" class="media-object">
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">{{ comment.username }}<span>
+                                                {{ comment.created | date('d M Y') }} / <a class="reply-btn" href="#">
+                    Reply </a>
+                                                </span>
+                </h4>
+                <p>
+                    {{ comment.content }}
+                </p>
+                {% if comment.replies | default(false) %}
+                    {% for reply in comment.replies %}
+                        <hr>
+                        <!-- Nested media object -->
+                        <div class="media">
+                            <a href="#" class="pull-left">
+                                <img alt="" src="uploads/{{ reply.avatar }}" class="media-object">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">{{ reply.username }}<span>
+                                                        {{ reply.created | date('d M Y') }}
+                                                        </span>
+                                </h4>
+                                <p>
+                                    {{ reply.content }}
+                                </p>
+                            </div>
+                        </div>
+                        <!--end media-->
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <!--end media-->
+        {% if not loop.last %}<hr>{% endif %}
+    {% endfor %}
+    <div class="reply-box-wrap" style="display: none;">
+        <div class="media reply-box" style="background: none repeat scroll 0 0 #f5f5f5; border: 1px solid #f1f1f1; padding: 10px;">
+            <a href="#" class="pull-left">
+                <img alt="" src="uploads/{{ currentUser.avatar }}" class="media-object">
+            </a>
+            <div class="media-body">
+                <textarea class="reply-input col-md-10 form-control" rows="2" style="margin-bottom: 5px;"></textarea>
+                <div class="actions">
+                    <a href="{{ 'adComment_create' | url({'id': post.id}) }}" class="btn btn-primary reply-btn">Reply</a>
+                    <a href="#" class="btn btn-default cancel-btn">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
